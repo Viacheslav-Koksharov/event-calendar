@@ -1,16 +1,16 @@
 import { useState, useEffect, useContext } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
-import shortid from "shortid";
+import useLocalStorage from "../../hooks/useLocalStorage";
 import { FiPlus } from "react-icons/fi";
-import {
-  DAYS,
-  DAYS_LEAP,
-  DAYS_OF_THE_WEEK,
-  MONTHS,
-} from "../../initial/initialCalendar.js";
+import { DAYS_OF_THE_WEEK, MONTHS } from "../../utils/constants";
+import { options, getStartDayOfMonth, getDays } from "../../helpers/formatDate";
+import { getExistedNotes } from "../../helpers/notes";
+import { ModalContext } from "../../context/ModalContextProvider";
+import "../../index.css";
 import {
   ButtonCreate,
   Header,
+  InputSelect,
   Button,
   TableMonth,
   DayOfWeekList,
@@ -18,26 +18,18 @@ import {
   DayOfMonthList,
   DayOfMonth,
 } from "./Calendar.styled.js";
-import { ModalContext } from "../../context/ModalContextProvider";
 import CustomModal from "../CustomModal/CustomModal";
 import Form from "../Form/Form";
-import "../../index.css";
 
 const Calendar = () => {
-  const today = new Date();
-  const [date, setDate] = useState(today);
+  const [date, setDate] = useState(new Date());
   const [day, setDay] = useState(date.getDate());
   const [month, setMonth] = useState(date.getMonth());
   const [year, setYear] = useState(date.getFullYear());
+  const [selectedMonth, setSelectedMonth] = useState(null);
   const [startDay, setStartDay] = useState(getStartDayOfMonth(date));
   const { openModal } = useContext(ModalContext);
-
-  const savedNotes = JSON.parse(localStorage.getItem("notes"));
-  const [notes, setNotes] = useState(() => (savedNotes ? savedNotes : []));
-
-  useEffect(() => {
-    window.localStorage.setItem("notes", JSON.stringify(notes));
-  }, [notes]);
+  const [notes, setNotes] = useLocalStorage("notes", []);
 
   useEffect(() => {
     setDay(date.getDate());
@@ -46,32 +38,37 @@ const Calendar = () => {
     setStartDay(getStartDayOfMonth(date));
   }, [date]);
 
-  function getStartDayOfMonth(date) {
-    const startDate = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
-    return startDate === 0 ? 7 : startDate;
-  }
-
-  function isLeapYear(year) {
-    return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
-  }
-
-  const days = isLeapYear(year) ? DAYS_LEAP : DAYS;
+  useEffect(() => {
+    if (selectedMonth) {
+      setDate(new Date(selectedMonth.getFullYear(), selectedMonth.getMonth()));
+    }
+    setSelectedMonth(null);
+  }, [selectedMonth]);
 
   const handleSubmitForm = ({ title, description, date, time }) => {
     const newNote = {
-      id: shortid.generate(),
-      title,
-      description,
-      date,
-      time,
+      id: new Date(date).toLocaleString("en-US", options),
+      data: {
+        title,
+        description,
+        date,
+        time,
+      },
     };
+
     setNotes([...notes, newNote]);
   };
+
   const onButtonPrevClick = () => {
-    setDate(new Date(year, month - 1, day));
+    setDate(new Date(year, month - 1));
   };
+
   const onButtonNextClick = () => {
-    setDate(new Date(year, month + 1, day));
+    setDate(new Date(year, month + 1));
+  };
+
+  const inputSubmit = (e) => {
+    setSelectedMonth(new Date(e.target.value));
   };
 
   return (
@@ -86,13 +83,20 @@ const Calendar = () => {
         <Button onClick={onButtonPrevClick}>
           <FaAngleLeft className="IconStyle" />
         </Button>
-        <div>
-          {MONTHS[month]} {year}
-        </div>
+        {!selectedMonth ? (
+          <div>
+            {MONTHS[month]} {year}
+          </div>
+        ) : (
+          <div>{`${selectedMonth.toLocaleString("en-US", {
+            month: "long",
+          })} ${selectedMonth.getFullYear()}`}</div>
+        )}
+
         <Button onClick={onButtonNextClick}>
           <FaAngleRight className="IconStyle" />
         </Button>
-        <input type="month"></input>
+        <InputSelect type="month" onChange={inputSubmit}></InputSelect>
       </Header>
 
       <TableMonth>
@@ -102,18 +106,24 @@ const Calendar = () => {
           ))}
         </DayOfWeekList>
         <DayOfMonthList>
-          {Array(days[month] + (startDay - 1))
+          {Array(getDays()[month] + (startDay - 1))
             .fill(null)
             .map((_, index) => {
               const d = index - (startDay - 2);
               return (
                 <DayOfMonth
                   key={index}
-                  isToday={d === today.getDate()}
+                  isToday={d === date.getDate()}
                   isSelected={d === day}
-                  onClick={() => setDate(new Date(year, month, d))}
                 >
                   {d > 0 ? d : ""}
+                  {getExistedNotes(notes, year, month, d).length > 0 && (
+                    <ul>
+                      {getExistedNotes(notes, year, month, d).map((note) => (
+                        <li key={note.data.title}>{note.data.title}</li>
+                      ))}
+                    </ul>
+                  )}
                 </DayOfMonth>
               );
             })}

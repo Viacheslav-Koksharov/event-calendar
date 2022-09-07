@@ -22,6 +22,14 @@ const Header = styled.div`
   justify-content: flex-end;
 `;
 
+const InputSelect = styled.input`
+  margin: 0;
+  padding: 0;
+  outline: none;
+  width: 15px;
+  border: none;
+  background-color: inherit;
+`;
 const Button = styled.div`
   cursor: pointer;
 `;
@@ -78,6 +86,7 @@ const DayOfMonth = styled.li`
 export {
   Header,
   ButtonCreate,
+  InputSelect,
   Button,
   TableMonth,
   DayOfWeekList,

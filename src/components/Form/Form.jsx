@@ -32,12 +32,17 @@ const Form = ({ onSubmit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit({ title, description, date, time });
+    resetForm();
+    openModal();
+  };
+
+  const resetForm = () => {
     setTitle("");
     setDescription("");
     setDate("");
     setTime("");
-    openModal();
   };
+
   const openModal = () => {
     setIsOpen(false);
   };
@@ -78,7 +83,6 @@ const Form = ({ onSubmit }) => {
           required
         />
       </LabelStyle>
-
       <LabelStyle>
         Begin time
         <InputStyle
