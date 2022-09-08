@@ -1,16 +1,18 @@
 import { ModalProvider } from "../../context/ModalContextProvider";
-
+import { NotesProvider } from "../../context/NotesContextProvider";
 import Container from "../Container";
 import Calendar from "../Calendar";
-import "./App.css";
+import { Title } from "./App.styled";
 
 const App = () => {
   return (
     <>
       <ModalProvider>
         <Container>
-          <h1>Event Calendar </h1>
-          <Calendar />
+          <Title>Event Calendar </Title>
+          <NotesProvider>
+            <Calendar />
+          </NotesProvider>
         </Container>
       </ModalProvider>
     </>

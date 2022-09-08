@@ -2,15 +2,17 @@ import { useContext } from "react";
 import Modal from "react-modal";
 import { ModalContext } from "../../context/ModalContextProvider";
 import { AiFillCloseCircle } from "react-icons/ai";
-import { Button, ModalTitle, customStyles } from "./CustomModal.styled";
 import "../../index.css";
+import { Button, ModalTitle, customStyles } from "./CustomModal.styled";
 
 const CustomModal = ({ children }) => {
-  const { modalIsOpen, setIsOpen } = useContext(ModalContext);
+  const { modalIsOpen, setIsOpen, setIsCreate } = useContext(ModalContext);
 
-  function closeModal() {
+  const closeModal = () => {
     setIsOpen(false);
-  }
+    setIsCreate(false);
+  };
+
   return (
     <Modal
       isOpen={modalIsOpen}

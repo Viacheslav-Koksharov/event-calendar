@@ -23,11 +23,11 @@ const customStyles = {
     zIndex: "1999",
   },
   content: {
-    top: "60%",
+    top: "50%",
     left: "50%",
     right: "auto",
     bottom: "auto",
-    width: "90%",
+    width: "50%",
     height: "70%",
     padding: "5px",
     marginRight: "-50%",

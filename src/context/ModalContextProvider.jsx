@@ -1,21 +1,28 @@
 import { useState, createContext } from "react";
 
-const ModalContext = createContext({
-  modalIsOpen: false,
-  setIsOpen: () => {},
-  openModal: () => {},
-});
+const ModalContext = createContext();
 
 const ModalProvider = ({ children }) => {
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [noteToEdit, setNoteToEdit] = useState(null);
+  const [isCreate, setIsCreate] = useState(false);
 
-  function openModal() {
+  const openModal = (e) => {
     setIsOpen(true);
-  }
+    setNoteToEdit(e.target.name);
+
+    if (e.currentTarget.id === "create") {
+      setIsCreate(true);
+    }
+  };
 
   const sampleModalContext = {
     modalIsOpen,
     setIsOpen,
+    noteToEdit,
+    setNoteToEdit,
+    isCreate,
+    setIsCreate,
     openModal,
   };
 

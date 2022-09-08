@@ -1,5 +1,12 @@
 import styled, { css } from "styled-components";
 
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  padding: 10px 10px 5px 10px;
+`;
+
 const ButtonCreate = styled.button`
   display: flex;
   padding: 0;
@@ -15,11 +22,11 @@ const ButtonCreate = styled.button`
     transform: scale(1.1);
   }
 `;
-const Header = styled.div`
-  font-weight: bold;
-  padding: 10px 10px 5px 10px;
+
+const ContainerNav = styled.div`
   display: flex;
   justify-content: flex-end;
+  width: 200px;
 `;
 
 const InputSelect = styled.input`
@@ -30,8 +37,13 @@ const InputSelect = styled.input`
   border: none;
   background-color: inherit;
 `;
-const Button = styled.div`
+const Button = styled.button`
+  color: blue;
   cursor: pointer;
+`;
+
+const MonthName = styled.div`
+  margin: 0 auto;
 `;
 
 const TableMonth = styled.div`
@@ -64,7 +76,7 @@ const DayOfMonthList = styled.ul`
 const DayOfMonth = styled.li`
   display: flex;
   width: calc((100% - 14px) / 7);
-  height: 80px;
+  height: 70px;
   align-items: flex-start;
   justify-content: flex-start;
   border: 1px solid #708db3;
@@ -83,14 +95,26 @@ const DayOfMonth = styled.li`
     `}
 `;
 
+const DayNotesList = styled.ul`
+  margin: 0 auto;
+`;
+
+const DayNotes = styled.li`
+  margin: 0 0 5px 0;
+`;
+
 export {
   Header,
   ButtonCreate,
+  ContainerNav,
   InputSelect,
   Button,
+  MonthName,
   TableMonth,
   DayOfWeekList,
   DayOfWeek,
   DayOfMonthList,
   DayOfMonth,
+  DayNotesList,
+  DayNotes,
 };

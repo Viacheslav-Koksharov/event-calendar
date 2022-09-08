@@ -1,13 +1,13 @@
 import { useState, useContext } from "react";
-import { FormStyle, InputStyle, LabelStyle, Button } from "./Form.styled";
 import { ModalContext } from "../../context/ModalContextProvider";
+import { FormStyle, InputStyle, LabelStyle, Button } from "./Form.styled";
 
-const Form = ({ onSubmit }) => {
+const FormCreate = ({ onSubmit }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
-  const { setIsOpen } = useContext(ModalContext);
+  const { setIsOpen, setIsCreate } = useContext(ModalContext);
 
   const handleChange = (e) => {
     const { name, value } = e.currentTarget;
@@ -29,11 +29,12 @@ const Form = ({ onSubmit }) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const submitForm = (e) => {
     e.preventDefault();
     onSubmit({ title, description, date, time });
     resetForm();
-    openModal();
+    setIsOpen(false);
+    setIsCreate(false);
   };
 
   const resetForm = () => {
@@ -43,12 +44,8 @@ const Form = ({ onSubmit }) => {
     setTime("");
   };
 
-  const openModal = () => {
-    setIsOpen(false);
-  };
-
   return (
-    <FormStyle onSubmit={handleSubmit}>
+    <FormStyle onSubmit={submitForm}>
       <LabelStyle>
         Title *
         <InputStyle
@@ -99,4 +96,4 @@ const Form = ({ onSubmit }) => {
   );
 };
 
-export default Form;
+export default FormCreate;
