@@ -107,8 +107,8 @@ const Calendar = () => {
 
       <TableMonth>
         <DayOfWeekList>
-          {DAYS_OF_THE_WEEK.map((d) => (
-            <DayOfWeek key={d}>{d}</DayOfWeek>
+          {DAYS_OF_THE_WEEK.map((day) => (
+            <DayOfWeek key={day}>{day}</DayOfWeek>
           ))}
         </DayOfWeekList>
         <DayOfMonthList>
@@ -121,6 +121,7 @@ const Calendar = () => {
                   key={index}
                   isToday={numericDay === date.getDate()}
                   isSelected={numericDay === day}
+                  onClick={() => setDate(new Date(year, month, numericDay))}
                 >
                   {numericDay > 0 ? numericDay : ""}
                   {getExistedNotes(notes, year, month, numericDay).length >

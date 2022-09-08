@@ -26,7 +26,7 @@ const ButtonCreate = styled.button`
 const ContainerNav = styled.div`
   display: flex;
   justify-content: flex-end;
-  width: 200px;
+  min-width: 200px;
 `;
 
 const InputSelect = styled.input`
@@ -76,7 +76,7 @@ const DayOfMonthList = styled.ul`
 const DayOfMonth = styled.li`
   display: flex;
   width: calc((100% - 14px) / 7);
-  height: 70px;
+  min-height: 70px;
   align-items: flex-start;
   justify-content: flex-start;
   border: 1px solid #708db3;

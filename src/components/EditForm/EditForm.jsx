@@ -66,6 +66,13 @@ const EditForm = () => {
     setIsOpen(false);
   };
 
+  const deleteNote = () => {
+    const savedNotes = notes.filter(
+      ({ unicId }) => unicId !== noteToUpdate.unicId
+    );
+    setNotes(savedNotes);
+  };
+
   return (
     <FormStyle onSubmit={updateNotesList}>
       <LabelStyle>
@@ -110,7 +117,7 @@ const EditForm = () => {
           onChange={changeNote}
         />
       </LabelStyle>
-      <Button type="submit" aria-label="save">
+      <Button type="submit" aria-label="save" onClick={() => deleteNote()}>
         Delete
       </Button>
       <Button type="submit" aria-label="save">
