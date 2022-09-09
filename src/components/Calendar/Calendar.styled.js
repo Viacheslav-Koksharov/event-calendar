@@ -32,16 +32,15 @@ const ContainerNav = styled.div`
 const InputSelect = styled.input`
   margin: 0;
   padding: 0;
-  width: 15px;
   outline: none;
+  width: 15px;
   border: none;
   background-color: inherit;
 `;
 const Button = styled.button`
-  color: #2c3d88;
-  font-weight: 700;
-  background-color: inherit;
+  color: blue;
   cursor: pointer;
+  background-color: inherit;
 `;
 
 const MonthName = styled.div`
@@ -102,7 +101,13 @@ const DayNotesList = styled.ul`
 `;
 
 const DayNotes = styled.li`
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 90px;
+  align-content: center;
+  justify-content: flex-start;
   margin: 0 0 5px 0;
+  overflow: hidden;
 `;
 
 export {
