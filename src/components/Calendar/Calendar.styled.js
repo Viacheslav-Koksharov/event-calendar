@@ -32,13 +32,15 @@ const ContainerNav = styled.div`
 const InputSelect = styled.input`
   margin: 0;
   padding: 0;
-  outline: none;
   width: 15px;
+  outline: none;
   border: none;
   background-color: inherit;
 `;
 const Button = styled.button`
-  color: blue;
+  color: #2c3d88;
+  font-weight: 700;
+  background-color: inherit;
   cursor: pointer;
 `;
 

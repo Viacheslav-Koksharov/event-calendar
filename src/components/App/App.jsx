@@ -1,8 +1,8 @@
 import { ModalProvider } from "../../context/ModalContextProvider";
 import { NotesProvider } from "../../context/NotesContextProvider";
+import { Title } from "./App.styled";
 import Container from "../Container";
 import Calendar from "../Calendar";
-import { Title } from "./App.styled";
 
 const App = () => {
   return (

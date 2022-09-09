@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { ModalContext } from "../../context/ModalContextProvider";
-import { FormStyle, InputStyle, LabelStyle, Button } from "./Form.styled";
+import { FormStyle, InputStyle,TextareaStyle, LabelStyle, Button } from "./Form.styled";
 
 const FormCreate = ({ onSubmit }) => {
   const [title, setTitle] = useState("");
@@ -60,13 +60,13 @@ const FormCreate = ({ onSubmit }) => {
       </LabelStyle>
       <LabelStyle>
         Description
-        <textarea
+        <TextareaStyle
           name="description"
           value={description}
           rows="5"
           placeholder="Your message here..."
           onChange={handleChange}
-        ></textarea>
+        ></TextareaStyle>
       </LabelStyle>
       <LabelStyle>
         Date *

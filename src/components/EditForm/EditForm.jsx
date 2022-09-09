@@ -2,7 +2,14 @@ import { useState, useEffect, useContext } from "react";
 import { ModalContext } from "../../context/ModalContextProvider";
 import { notesContext } from "../../context/NotesContextProvider";
 import { options } from "../../helpers/formatDate";
-import { FormStyle, InputStyle, LabelStyle, Button } from "./EditForm.styled";
+import {
+  FormStyle,
+  InputStyle,
+  TextareaStyle,
+  LabelStyle,
+  ButtonContainer,
+  Button,
+} from "./EditForm.styled";
 
 const EditForm = () => {
   const { setIsOpen, noteToEdit, setNoteToEdit } = useContext(ModalContext);
@@ -88,13 +95,13 @@ const EditForm = () => {
       </LabelStyle>
       <LabelStyle>
         Description
-        <textarea
+        <TextareaStyle
           name="description"
           value={description}
           rows="5"
           placeholder="Your message here..."
           onChange={changeNote}
-        ></textarea>
+        ></TextareaStyle>
       </LabelStyle>
       <LabelStyle>
         Date *
@@ -117,12 +124,14 @@ const EditForm = () => {
           onChange={changeNote}
         />
       </LabelStyle>
-      <Button type="submit" aria-label="save" onClick={() => deleteNote()}>
-        Delete
-      </Button>
-      <Button type="submit" aria-label="save">
-        Save
-      </Button>
+      <ButtonContainer>
+        <Button type="submit" aria-label="save" onClick={() => deleteNote()}>
+          Delete
+        </Button>
+        <Button type="submit" aria-label="save">
+          Save
+        </Button>
+      </ButtonContainer>
     </FormStyle>
   );
 };
